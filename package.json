@@ -1,0 +1,36 @@
+{
+  "name": "small-app-manage",
+  "version": "0.0.1",
+  "description": "pc-manager-for-smallApp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "presets": [
+    "env"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyx871017/smallAppManager.git"
+  },
+  "keywords": [
+    "smallApp"
+  ],
+  "author": "zhaoyuxiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zyx871017/smallAppManager/issues"
+  },
+  "homepage": "https://github.com/zyx871017/smallAppManager#readme",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.5.5"
+  }
+}
