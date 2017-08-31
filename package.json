@@ -23,8 +23,18 @@
   },
   "homepage": "https://github.com/zyx871017/smallAppManager#readme",
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "gulp": "^3.9.1",
+    "html-webpack-plugin": "^2.30.1",
+    "jsx-loader": "^0.13.2",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "webpack-dev-server": "^2.7.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
