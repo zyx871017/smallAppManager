@@ -8,7 +8,6 @@ gulp.task('server', function () {
     var compiler = webpack(config);
     var server = new webpackDevServer(compiler, {
         hot: true,
-        noInfo: true,
         publicPath: config.output.publicPath,
         historyApiFallback: true
     });
