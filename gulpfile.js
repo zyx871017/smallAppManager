@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var path = require('path');
 var config = require('./webpack.config.js');
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
@@ -9,7 +10,10 @@ gulp.task('server', function () {
     var server = new webpackDevServer(compiler, {
         hot: true,
         publicPath: config.output.publicPath,
-        historyApiFallback: true
+        contentBase: path.join(__dirname, 'dist'),
+        historyApiFallback: true,
+        watchContentBase: true,
+        stats: 'errors-only'
     });
     server.listen(3000, 'localhost', function (err) {
         if(err){
