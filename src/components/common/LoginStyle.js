@@ -3,6 +3,7 @@ module.exports.styles = {
         fontSize: 30,
         textAlign: 'center',
         marginTop: 100,
+        color: '#ccc'
     },
     input: {
         display: 'block',

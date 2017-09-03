@@ -1,6 +1,7 @@
 import React from 'react';
 import {RaisedButton, TextField} from 'material-ui';
 import {styles} from './LoginStyle';
+import {request} from './../../common/request';
 
 class Login extends React.Component {
     constructor(props) {
@@ -22,6 +23,17 @@ class Login extends React.Component {
     clickLogin = () => {
       const {username, password} = this.state;
       console.log(username,password);
+      request('admin/admin-info',{
+          method: 'POST',
+          body: JSON.stringify({
+              admin: 'admin',
+              password: 'admin'
+          })
+      })
+          .then(function (res) {
+              console.log(res);
+          });
+      this.props.history.push('/main?userId=10');
     };
 
     render() {
