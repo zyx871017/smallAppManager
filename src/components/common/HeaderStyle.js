@@ -2,7 +2,8 @@ module.exports.styles = {
     paperStyle: {
         display: 'inline-block',
         width: '200px',
-        marginTop: '30px'
+        marginTop: '30px',
+        float: 'left'
     },
     titleBarContent: {
         width: '100%',
@@ -15,7 +16,17 @@ module.exports.styles = {
         height: '64px',
         margin: '0 auto'
     },
+    mainContainer:{
+        width: '1230px',
+        margin: '0 auto',
+        position: 'relative'
+    },
     menu: {
         width: '200px'
+    },
+    tableContainer: {
+        float: 'left',
+        width: '1000px',
+        margin: '30px 0 30px 25px'
     }
 };

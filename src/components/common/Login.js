@@ -22,18 +22,22 @@ class Login extends React.Component {
 
     clickLogin = () => {
       const {username, password} = this.state;
-      console.log(username,password);
+      const that = this;
       request('admin/admin-info',{
           method: 'POST',
           body: JSON.stringify({
-              admin: 'admin',
-              password: 'admin'
+              admin: username,
+              password: password
           })
       })
           .then(function (res) {
-              console.log(res);
+              if(res.retCode === 0){
+                  localStorage.setItem('token', res.token);
+                  that.props.history.push('/main/goodsList');
+              }else{
+                  alert(res.msg);
+              }
           });
-      this.props.history.push('/main?userId=10');
     };
 
     render() {

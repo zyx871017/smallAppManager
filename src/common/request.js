@@ -1,40 +1,50 @@
 import common from './common';
 
-var token = localStorage.getItem('token');
-console.log(token);
-if(!token){
+const token = localStorage.getItem('token')||'';
+
+if (!token) {
     window.location.hash = '/login';
+} else {
+    if (window.location.hash === '#/login') {
+        window.location.hash = '/main/goodsList';
+    }
 }
 
-module.exports.request = function (url, option) {
-    const opt = Object.assign({} , {
-        header: {
+module.exports.request = function (url, option, data) {
+    let queryString = '';
+    if (data) {
+        Object.keys(data).forEach((value, index) => {
+            queryString += `&&${value}=${data[value]}`;
+        })
+    }
+    const opt = Object.assign({}, {
+        headers: {
             'Cache-Control': 'no-cache',
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        }
+        },
+        method: 'GET'
     }, option);
+    url += `?token=${token}${queryString}`;
     return new Promise(function (resolve, reject) {
-        console.log(opt);
         fetch(`${common.apiPrefix}${url}`, opt)
             .then(function (response) {
-                console.log(response);
-                if(response.status === 200){
+                if (response.status === 200) {
                     return response.json()
-                }else{
+                } else {
                     reject(resolve);
                 }
             })
             .then(function (res) {
-                if(res.retCode === 0) {
+                if (res.retCode === 0) {
                     resolve(res);
-                }else{
+                } else {
                     reject(res);
                 }
             })
-            .catch(function (res) {
-                console.log(res);
-                alert('请求出错，请稍后重试！')
-            });
     })
+        .catch(function (res) {
+            alert('请求出错，请稍后重试！');
+            return res;
+        });
 };

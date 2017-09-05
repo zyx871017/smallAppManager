@@ -15,25 +15,15 @@
         html{
             background-color: rgb(48,48,48);
         }
+        input:-webkit-autofill {
+            background: rgb(48,48,48) none;
+            color: #000;
+        }
     </style>
 </head>
 <body>
 <div id="app-root"></div>
 <script type="text/javascript" src="/Dll.js"></script>
 <script src="./home.js"></script>
-<script type="text/javascript">
-    fetch("https://www.qaformath.com/zbuniserver-api/category/get-categories-list", {
-        headers: {
-            'Cache-Control': 'no-cache'
-        }
-    })
-        .then(function (response) {
-            return response.json();
-            console.log(response);
-        })
-        .then(function (res) {
-            console.log(res);
-        });
-</script>
 </body>
 </html>

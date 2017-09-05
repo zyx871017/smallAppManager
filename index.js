@@ -14,8 +14,6 @@ ReactDOM.render((
         <HashRouter>
             <div>
                 <Route path="/main" component={Header}/>
-                <Route path="/main/goodsList" component={GoodsList}/>
-                <Route path="/main/category" component={Category}/>
                 <Route path="/login" component={Login}/>
             </div>
         </HashRouter>

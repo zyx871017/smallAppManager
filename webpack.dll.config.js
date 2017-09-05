@@ -5,7 +5,8 @@ var vendors = [
     'react',
     'react-dom',
     'material-ui',
-    'react-router-dom'
+    'react-router-dom',
+    'react-avatar-editor'
 ];
 
 module.exports = {
