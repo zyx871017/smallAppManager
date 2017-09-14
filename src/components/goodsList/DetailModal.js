@@ -3,11 +3,12 @@ import {
   RaisedButton,
   Step,
   Stepper,
-  StepLabel,
+  StepButton
 } from 'material-ui';
-import AvatarEditor from 'react-avatar-editor'
 import React from 'react';
 import AddGoodsDetail from './AddGoodsDetail';
+import AddImage from './AddImage';
+import AddGoodSpec from './AddGoodSpec';
 
 class DetailModal extends React.Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class DetailModal extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const data = nextProps.data;
-    console.log(data);
     this.setState(data);
   }
 
@@ -29,30 +29,17 @@ class DetailModal extends React.Component {
     this.props.handleClose();
   };
 
-  fileSelect = e => {
-    const that = this;
-    const image = e.currentTarget.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = function (e) {
-      that.setState({
-        fileUrl: e.target.result
-      })
-    };
-
-  };
-
   getStepContent = (stepIndex) => {
-    const {data, keyWord, categories} = this.props;
+    const {keyWord} = this.props;
     switch(stepIndex){
       case 0:
-        return <AddGoodsDetail data={data} keyWord={keyWord} categories={categories} />;
+        return <AddGoodsDetail keyWord={keyWord} />;
         break;
       case 1:
-        return <div>2</div>;
+        return <AddImage keyWord={keyWord} />;
         break;
       case 2:
-        return <div>3</div>;
+        return <AddGoodSpec keyWord={keyWord} />;
         break;
       default:
         break;
@@ -121,17 +108,24 @@ class DetailModal extends React.Component {
     }
 
     const actions = [
-      <RaisedButton
-        label="取消"
-        keyboardFocused={true}
-        onClick={this.handleClose}
-      />,
-      <RaisedButton
-        label="确认"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.handleConfirm}
-      />
+      <div style={{marginTop: 12}}>
+        <RaisedButton
+          label="取消"
+          onClick={this.handleClose}
+          style={{marginRight: 12}}
+        />
+        <RaisedButton
+          label="上一步"
+          disabled={stepIndex === 0}
+          onClick={this.handlePrev}
+          style={{marginRight: 12}}
+        />
+        <RaisedButton
+          label={stepIndex === 2 ? '确认提交' : '下一步'}
+          primary={true}
+          onClick={this.handleNext}
+        />
+      </div>
     ];
     const contentStyle = {margin: '0 16px'};
 
@@ -143,15 +137,30 @@ class DetailModal extends React.Component {
         title={modalTitle}
       >
         <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
-          <Stepper activeStep={stepIndex}>
+          <Stepper linear={false} activeStep={stepIndex}>
             <Step>
-              <StepLabel>基本信息</StepLabel>
+              <StepButton onClick={() => {
+                this.setState({
+                  stepIndex: 0,
+                  finished: false
+                })
+              }}>基本信息</StepButton>
             </Step>
             <Step>
-              <StepLabel>图片上传</StepLabel>
+              <StepButton onClick={() => {
+                this.setState({
+                  stepIndex: 1,
+                  finished: false
+                })
+              }}>图片上传</StepButton>
             </Step>
             <Step>
-              <StepLabel>商品规格</StepLabel>
+              <StepButton onClick={() => {
+                this.setState({
+                  stepIndex: 2,
+                  finished: false
+                })
+              }}>商品规格</StepButton>
             </Step>
           </Stepper>
           <div style={contentStyle}>
@@ -170,38 +179,10 @@ class DetailModal extends React.Component {
             ) : (
               <div>
                 <p>{this.getStepContent(stepIndex)}</p>
-                <div style={{marginTop: 12}}>
-                  <RaisedButton
-                    label="Back"
-                    disabled={stepIndex === 0}
-                    onClick={this.handlePrev}
-                    style={{marginRight: 12}}
-                  />
-                  <RaisedButton
-                    label={stepIndex === 2 ? '确认提交' : '下一步'}
-                    primary={true}
-                    onClick={this.handleNext}
-                  />
-                </div>
               </div>
             )}
           </div>
         </div>
-        {/*<input*/}
-        {/*type="file"*/}
-        {/*accept="image/gif,image/jpeg,image/png"*/}
-        {/*onChange={this.fileSelect}*/}
-        {/*/>*/}
-        {/*<AvatarEditor*/}
-        {/*image={this.state.fileUrl}*/}
-        {/*width={250}*/}
-        {/*height={250}*/}
-        {/*border={50}*/}
-        {/*color={[255, 255, 255, 0.6]} // RGBA*/}
-        {/*scale={1.2}*/}
-        {/*rotate={0}*/}
-        {/*/>*/}
-
       </Dialog>
     )
   }

@@ -10,21 +10,19 @@ import {
   RaisedButton,
   Paper
 } from 'material-ui';
+import common from './../../common/common';
 import DetailModal from './DetailModal';
 import {styles} from './GoodsListStyles';
 import {connect} from 'react-redux';
-import { goodsList } from './../../actions';
+import {goodsList, categoriesList} from './../../actions';
 
 class GoodsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
       showData: {},
       modalShow: false,
-      keyWord: '',
-      categories: []
-
+      keyWord: ''
     };
   }
 
@@ -34,25 +32,30 @@ class GoodsList extends React.Component {
       .then(res => {
         if (res.retCode === 0) {
           that.props.saveGoodsList(res.data.dataArr);
-          that.setState({
-            data: res.data.dataArr
-          });
         }
       });
 
     request('category/get-categories-list', {})
       .then(res => {
         if (res.retCode === 0) {
-          that.setState({
-            categories: res.data
-          });
+          that.props.saveCategoriesList(res.data);
         }
       });
   }
 
-  showModal = (item, key) => {
+  showModal = (id, key) => {
+    if (id !== null) {
+      const that = this;
+      request(`home/get-goods-info/${id}`, {})
+        .then(res => {
+          if (res.retCode === 0) {
+            that.props.pickGoodDetail(res.data);
+          }
+        });
+    }else {
+      this.props.pickGoodDetail(common.noDataGood);
+    }
     this.setState({
-      showData: item,
       keyWord: key,
       modalShow: true
     });
@@ -66,15 +69,14 @@ class GoodsList extends React.Component {
 
 
   render() {
-    console.log(this.props.goodsList);
-    const dataRow = this.state.data;
+    const dataRow = this.props.goodsList.goodsList;
     return (
       <Paper>
         <RaisedButton
           primary={true}
           style={{margin: '8px'}}
-          onclick={() => {
-            this.showModal(null, 'addGoods')
+          onClick={() => {
+            this.showModal(null, 'addGoods');
           }}
         >
           添加
@@ -107,13 +109,13 @@ class GoodsList extends React.Component {
                       <RaisedButton
                         primary={true}
                         onClick={() => {
-                          this.showModal(item, 'showDetail')
+                          this.showModal(item.id, 'showDetail')
                         }}
                       >查看详情</RaisedButton>
                       <RaisedButton
                         primary={true}
                         onClick={() => {
-                          this.showModal(item, 'editDetail')
+                          this.showModal(item.id, 'editDetail')
                         }}
                       >编辑</RaisedButton>
                       <RaisedButton primary={true}>删除</RaisedButton>
@@ -126,27 +128,21 @@ class GoodsList extends React.Component {
         </Table>
         <DetailModal
           keyWord={this.state.keyWord}
-          data={this.state.showData}
           open={this.state.modalShow}
           handleClose={this.modalClose}
-          categories={this.state.categories}
         />
       </Paper>
     )
   }
 }
 
-const dispatchSaveGoodsList = dispatch => {
-  return{saveGoodsList: dataArr => {
-    dispatch(goodsList.saveGoodsList(dataArr));
-  }}
-};
-
 export default connect(
   state => ({
-    goodsList: state.goodsList,
-    addGood : state.addGood
+    goodsList: state.goodsList.toJS()
   }),
-  dispatchSaveGoodsList
-
+  dispatch => ({
+    saveGoodsList: dataArr => dispatch(goodsList.saveGoodsList(dataArr)),
+    saveCategoriesList: dataObj => dispatch(categoriesList.saveCategoriesList(dataObj)),
+    pickGoodDetail: dataObj => dispatch(goodsList.pickGoodDetail(dataObj))
+  })
 )(GoodsList);

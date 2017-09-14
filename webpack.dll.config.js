@@ -8,6 +8,7 @@ var vendors = [
   'react-router-dom',
   'react-avatar-editor',
   'redux',
+  'immutable',
   'react-redux'
 ];
 
