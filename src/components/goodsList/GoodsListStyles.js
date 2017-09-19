@@ -11,6 +11,12 @@ module.exports.styles = {
   middleColumn: {
     width: '80px',
   },
+  secImageItem: {
+    marginTop: '12px',
+    width: 150,
+    float: 'left',
+    marginRight: 12
+  },
   fileSelect: {
     opacity: 0,
     filter: 'alpha(opacity=0)',
@@ -24,7 +30,7 @@ module.exports.styles = {
   fileSelectContent: {
     marginRight: 12,
     display: 'block',
-    width: '100px',
+    width: '150px',
     position: 'relative',
     marginBottom: '12px',
   },
@@ -41,8 +47,7 @@ module.exports.styles = {
     marginBottom: '12px',
     backgroundColor: '#fff',
     display: 'block',
-    marginRight: '12px',
-    float: 'left'
+    marginRight: '12px'
   },
   specKey: {
     width: 150,

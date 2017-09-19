@@ -9,6 +9,8 @@ import React from 'react';
 import AddGoodsDetail from './AddGoodsDetail';
 import AddImage from './AddImage';
 import AddGoodSpec from './AddGoodSpec';
+import {request} from './../../common/request';
+import {connect} from 'react-redux';
 
 class DetailModal extends React.Component {
   constructor(props) {
@@ -18,11 +20,6 @@ class DetailModal extends React.Component {
       stepIndex: 0,
       fileUrl: ''
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const data = nextProps.data;
-    this.setState(data);
   }
 
   handleClose = () => {
@@ -55,6 +52,9 @@ class DetailModal extends React.Component {
 
   handleNext = () => {
     const {stepIndex} = this.state;
+    if(stepIndex === 2){
+      this.handleConfirm();
+    }
     this.setState({
       stepIndex: stepIndex + 1,
       finished: stepIndex >= 2,
@@ -62,30 +62,15 @@ class DetailModal extends React.Component {
   };
 
   handleConfirm = () => {
-    const {
-      goods_name,
-      category_id,
-      goods_jingle,
-      goods_price,
-      goods_marketprice,
-      goods_storage,
-      goods_salenum,
-      goods_click,
-      goods_freight,
-      evaluation_count,
-      evaluation_good_star
-    } = this.state;
-    console.log(goods_name,
-      category_id,
-      goods_jingle,
-      goods_price,
-      goods_marketprice,
-      goods_storage,
-      goods_salenum,
-      goods_click,
-      goods_freight,
-      evaluation_count,
-      evaluation_good_star)
+    const queryData = this.props.goodsList.editGood;
+
+    request('admin/goods/add-goods',{
+      method: 'POST',
+      body: JSON.stringify(queryData)
+    })
+      .then(function (res) {
+        console.log(res);
+      });
   };
 
   render() {
@@ -188,4 +173,9 @@ class DetailModal extends React.Component {
   }
 }
 
-export default DetailModal;
+export default connect(
+  state => ({
+    goodsList: state.goodsList.toJS(),
+    categoriesList : state.categoriesList.toJS()
+  })
+)(DetailModal);

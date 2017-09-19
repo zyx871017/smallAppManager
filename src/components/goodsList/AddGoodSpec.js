@@ -70,12 +70,11 @@ class AddGoodSpec extends React.Component {
 
 export default connect(
   state => ({
-    goodsList: state.goodsList.toJS(),
-    categoriesList: state.categoriesList.toJS()
+    goodsList: state.goodsList.toJS()
   }),
   dispatch => ({
     patchGoodDetail: dataObj => dispatch(goodsList.patchGoodDetail(dataObj)),
     addSpec: () => dispatch(goodsList.addSpec()),
-    editSpec: dataObj => dispatch(goodsList.editSpec(dataObj))
+    editSpec: (index, dataObj) => dispatch(goodsList.editSpec(index, dataObj))
   })
 )(AddGoodSpec);
