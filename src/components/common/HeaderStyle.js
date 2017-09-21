@@ -8,7 +8,7 @@ module.exports.styles = {
     titleBarContent: {
         width: '100%',
         height: '64px',
-        backgroundColor: 'rgb(0, 151, 167)'
+        backgroundColor: 'rgb(0, 188, 212)'
     },
     titleBar: {
         maxWidth: '1230px',

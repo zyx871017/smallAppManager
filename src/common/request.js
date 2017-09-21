@@ -14,7 +14,7 @@ module.exports.request = function (url, option, data) {
     let queryString = '';
     if (data) {
         Object.keys(data).forEach((value, index) => {
-            queryString += `&&${value}=${data[value]}`;
+            queryString += `&${value}=${data[value]}`;
         })
     }
     const opt = Object.assign({}, {

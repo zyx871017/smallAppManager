@@ -29,7 +29,7 @@ const iniState = {
 const goodsList = (state = fromJS(iniState), action) => {
   switch (action.type) {
     case 'SAVE_GOODS_LIST':
-      return state.set('goodsList', fromJS(action.dataArr));
+      return state.merge(fromJS({goodsList: action.dataArr, goodsTotal: action.total}));
     case 'PATCH_GOOD_DETAIL':
       return state.mergeDeep(fromJS({editGood: action.dataObj}));
     case 'PICK_GOOD_DETAIL':

@@ -28,7 +28,7 @@ module.exports = {
       manifest: require('./dist/manifest.json')
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new UglifyJSPlugin()
+    // new UglifyJSPlugin()
   ],
   module: {
     loaders: [

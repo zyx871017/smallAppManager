@@ -15,6 +15,7 @@ import DetailModal from './DetailModal';
 import {styles} from './GoodsListStyles';
 import {connect} from 'react-redux';
 import {goodsList, categoriesList} from './../../actions';
+import Pagination from './../common/Pagination';
 
 class GoodsList extends React.Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class GoodsList extends React.Component {
     request('home/goods-list', {}, {limit: 10, offset: 0})
       .then(res => {
         if (res.retCode === 0) {
-          that.props.saveGoodsList(res.data.dataArr);
+          that.props.saveGoodsList(res.data.dataArr, res.data.total);
         }
       });
 
@@ -52,7 +53,7 @@ class GoodsList extends React.Component {
             that.props.pickGoodDetail(res.data);
           }
         });
-    }else {
+    } else {
       this.props.pickGoodDetail(common.noDataGood);
     }
     this.setState({
@@ -67,6 +68,15 @@ class GoodsList extends React.Component {
     })
   };
 
+  pageChange = index => {
+    const that = this;
+    request('home/goods-list', {}, {limit: 10, offset: (index - 1) * 10})
+      .then(res => {
+        if (res.retCode === 0) {
+          that.props.saveGoodsList(res.data.dataArr, res.data.total);
+        }
+      });
+  };
 
   render() {
     const dataRow = this.props.goodsList.goodsList;
@@ -126,6 +136,11 @@ class GoodsList extends React.Component {
             }
           </TableBody>
         </Table>
+        <Pagination
+          total={this.props.goodsList.goodsTotal}
+          limit={10}
+          pageChange={this.pageChange}
+        />
         <DetailModal
           keyWord={this.state.keyWord}
           open={this.state.modalShow}
@@ -141,7 +156,7 @@ export default connect(
     goodsList: state.goodsList.toJS()
   }),
   dispatch => ({
-    saveGoodsList: dataArr => dispatch(goodsList.saveGoodsList(dataArr)),
+    saveGoodsList: (dataArr,total) => dispatch(goodsList.saveGoodsList(dataArr,total)),
     saveCategoriesList: dataObj => dispatch(categoriesList.saveCategoriesList(dataObj)),
     pickGoodDetail: dataObj => dispatch(goodsList.pickGoodDetail(dataObj))
   })

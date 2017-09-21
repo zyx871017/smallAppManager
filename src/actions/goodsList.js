@@ -1,7 +1,8 @@
-export const saveGoodsList = dataArr => {
+export const saveGoodsList = (dataArr, total) => {
   return {
     type: 'SAVE_GOODS_LIST',
-    dataArr
+    dataArr,
+    total
   }
 };
 

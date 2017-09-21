@@ -48,8 +48,7 @@ class Header extends React.Component {
             <Menu
               style={styles.menu}
               selectedMenuItemStyle={{
-                backgroundColor: 'rgb(0, 151, 167)',
-                color: 'rgb(48,48,48)'
+                backgroundColor: 'rgb(0, 188, 212)',
               }}
               value={this.state.menuSelected}
               menuItemStyle={{width: '200px'}}
