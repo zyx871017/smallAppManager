@@ -8,9 +8,11 @@ import {
   TableRow,
   TableRowColumn,
   RaisedButton,
-  Paper
+  Paper,
+  Dialog,
+  List,
+  ListItem
 } from 'material-ui';
-import common from './../../common/common';
 import {styles} from './OrderListStyles';
 import {connect} from 'react-redux';
 import {ordersList} from './../../actions';
@@ -41,7 +43,7 @@ class OrderList extends React.Component {
     request('admin/order/order-list', {}, {limit: 10, offset: (index - 1) * 10})
       .then(res => {
         if (res.retCode === 0) {
-          that.props.saveGoodsList(res.data.dataArr, res.data.total);
+          that.props.saveOrdersList(res.data.dataArr, res.data.total);
         }
       });
   };
@@ -50,15 +52,6 @@ class OrderList extends React.Component {
     const dataRow = this.props.ordersList.ordersList;
     return (
       <Paper>
-        <RaisedButton
-          primary={true}
-          style={{margin: '8px'}}
-          onClick={() => {
-            this.showModal(null, 'addGoods');
-          }}
-        >
-          添加
-        </RaisedButton>
         <Table>
           <TableHeader
             displaySelectAll={false}
@@ -66,23 +59,28 @@ class OrderList extends React.Component {
           >
             <TableRow>
               <TableHeaderColumn style={styles.smallColumn}>ID</TableHeaderColumn>
-              <TableHeaderColumn style={styles.bigColumn}>商品名称</TableHeaderColumn>
-              <TableHeaderColumn style={styles.smallColumn}>商品价格</TableHeaderColumn>
-              <TableHeaderColumn style={styles.smallColumn}>库存</TableHeaderColumn>
-              <TableHeaderColumn style={styles.smallColumn}>销量</TableHeaderColumn>
+              <TableHeaderColumn style={styles.smallColumn}>收货人</TableHeaderColumn>
+              <TableHeaderColumn style={styles.smallColumn}>电话</TableHeaderColumn>
+              <TableHeaderColumn style={styles.bigColumn}>收货地址</TableHeaderColumn>
               <TableHeaderColumn style={styles.bigColumn}>操作</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             {
               dataRow.map(item => {
+                const address = item.userAddressInfo;
+                let addressDetail = `${address.province}${address.province === address.city ? '' : address.city}
+                ${address.district}${address.detail}`;
                 return (
                   <TableRow key={item.id} selectable={false}>
                     <TableRowColumn style={styles.smallColumn}>{item.id}</TableRowColumn>
-                    <TableRowColumn style={styles.bigColumn}>{item.goods_name}</TableRowColumn>
-                    <TableRowColumn style={styles.smallColumn}>{item.goods_price}</TableRowColumn>
-                    <TableRowColumn style={styles.smallColumn}>{item.goods_storage}</TableRowColumn>
-                    <TableRowColumn style={styles.smallColumn}>{item.goods_salenum}</TableRowColumn>
+                    <TableRowColumn style={styles.smallColumn}>{address.receiver}</TableRowColumn>
+                    <TableRowColumn style={styles.smallColumn}>
+                      <span title={address.phone}>{address.phone}</span>
+                    </TableRowColumn>
+                    <TableRowColumn style={styles.bigColumn}>
+                      <span title={addressDetail}>{addressDetail}</span>
+                    </TableRowColumn>
                     <TableRowColumn style={styles.bigColumn}>
                       <RaisedButton
                         primary={true}
@@ -90,13 +88,6 @@ class OrderList extends React.Component {
                           this.showModal(item.id, 'showDetail')
                         }}
                       >查看详情</RaisedButton>
-                      <RaisedButton
-                        primary={true}
-                        onClick={() => {
-                          this.showModal(item.id, 'editDetail')
-                        }}
-                      >编辑</RaisedButton>
-                      <RaisedButton primary={true}>删除</RaisedButton>
                     </TableRowColumn>
                   </TableRow>
                 )
@@ -109,6 +100,11 @@ class OrderList extends React.Component {
           limit={10}
           pageChange={this.pageChange}
         />
+        <Dialog>
+          <List>
+            <ListItem></ListItem>
+          </List>
+        </Dialog>
       </Paper>
     )
   }
@@ -119,6 +115,6 @@ export default connect(
     ordersList: state.ordersList.toJS()
   }),
   dispatch => ({
-    saveOrdersList: (dataArr,total) => dispatch(ordersList.saveGoodsList(dataArr,total))
+    saveOrdersList: (dataArr, total) => dispatch(ordersList.saveOrderList(dataArr, total))
   })
 )(OrderList);

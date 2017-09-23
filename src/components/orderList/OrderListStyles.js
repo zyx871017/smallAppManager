@@ -10,6 +10,7 @@ module.exports.styles = {
   },
   middleColumn: {
     width: '80px',
+    textAlign: 'center'
   },
   secImageItem: {
     marginTop: '12px',
