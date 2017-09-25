@@ -6,9 +6,9 @@ export const saveOrderList = (dataArr, total) => {
   }
 };
 
-export const patchOrderDetail = dataObj => {
+export const pickOrderDetail = dataObj => {
   return {
-    type: 'PATCH_ORDER_DETAIL',
+    type: 'PICK_ORDER_DETAIL',
     dataObj
   }
 };

@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var webpack = require('webpack');
 
@@ -18,17 +17,12 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    // new HtmlWebpackPlugin({
-    //   template: 'index.html',
-    //   filename: 'index.html',
-    //   chunks: ['home']
-    // }),
     new webpack.DllReferencePlugin({
       context: __dirname,
       manifest: require('./dist/manifest.json')
     }),
     new webpack.HotModuleReplacementPlugin(),
-    // new UglifyJSPlugin()
+    new UglifyJSPlugin()
   ],
   module: {
     loaders: [

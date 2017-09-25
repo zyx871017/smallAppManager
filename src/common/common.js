@@ -21,5 +21,14 @@ module.exports = {
     goods_freight: 0,
     evaluation_good_star: 0,
     evaluation_count: 0,
+  },
+  status: {
+    '1': '待付款',
+    '2': '待收货',
+    '3': '已取消',
+    '4': '退款中',
+    '5': '已退款',
+    '6': '退款失败',
+    '7': '已完成'
   }
 };

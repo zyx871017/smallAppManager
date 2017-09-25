@@ -2,6 +2,7 @@ import {fromJS} from 'immutable';
 
 const iniState = {
   ordersList: [],
+  orderDetail: {},
   ordersTotal: 0
 };
 
@@ -10,9 +11,7 @@ const goodsList = (state = fromJS(iniState), action) => {
     case 'SAVE_ORDER_LIST':
       return state.merge(fromJS({ordersList: action.dataArr, ordersTotal: action.total}));
     case 'PICK_ORDER_DETAIL':
-      return state.set('editGood', fromJS(action.dataObj));
-    case 'PATCH_ORDER_LIST':
-      return state;
+      return state.set('orderDetail', fromJS(action.dataObj));
     default:
       return state;
   }

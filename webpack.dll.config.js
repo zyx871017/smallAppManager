@@ -1,5 +1,6 @@
 var path = require("path");
 var webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 var vendors = [
   'react',
@@ -26,6 +27,7 @@ module.exports = {
       path: path.join(__dirname, 'dist', 'manifest.json'),
       name: '[name]_[hash]',
       context: __dirname
-    })
+    }),
+    new UglifyJSPlugin()
   ]
 }

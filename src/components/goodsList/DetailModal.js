@@ -16,7 +16,6 @@ class DetailModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      finished: false,
       stepIndex: 0,
       fileUrl: ''
     }
@@ -28,15 +27,15 @@ class DetailModal extends React.Component {
 
   getStepContent = (stepIndex) => {
     const {keyWord} = this.props;
-    switch(stepIndex){
+    switch (stepIndex) {
       case 0:
-        return <AddGoodsDetail keyWord={keyWord} />;
+        return <AddGoodsDetail keyWord={keyWord}/>;
         break;
       case 1:
-        return <AddImage keyWord={keyWord} />;
+        return <AddImage keyWord={keyWord}/>;
         break;
       case 2:
-        return <AddGoodSpec keyWord={keyWord} />;
+        return <AddGoodSpec keyWord={keyWord}/>;
         break;
       default:
         break;
@@ -52,19 +51,95 @@ class DetailModal extends React.Component {
 
   handleNext = () => {
     const {stepIndex} = this.state;
-    if(stepIndex === 2){
+    if (stepIndex === 2) {
       this.handleConfirm();
     }
     this.setState({
-      stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
+      stepIndex: stepIndex === 2 ? stepIndex : stepIndex + 1
     });
   };
 
   handleConfirm = () => {
     const queryData = this.props.goodsList.editGood;
+    const keyWord = this.props.keyWord;
+    let url = '';
+    switch (keyWord) {
+      case 'showDetail':
+        return;
+        break;
+      case 'editDetail':
+        url = 'admin/goods/edit-goods';
+        break;
+      case 'addGoods':
+        url = 'admin/goods/add-goods';
+        break;
+      default:
+        return;
+    }
+    const goods_spec = queryData.goods_spec;
+    const goodsSpec = {};
+    goods_spec.forEach(item => {
+      const {key, value} = item;
+      goodsSpec[key] = value;
+    });
+    queryData.goods_spec = goodsSpec;
+    // 数据校验
+    const {
+      goods_name,
+      goods_price,
+      goods_marketprice,
+      evaluation_count,
+      evaluation_good_star,
+      goods_storage,
+      goods_salenum,
+      goods_freight,
+      goods_click,
+      goods_image,
+    } = queryData;
 
-    request('admin/goods/add-goods',{
+    if (!goods_name) {
+      alert('商品名称不能为空！');
+      return;
+    }
+    if (!goods_price || typeof parseInt(goods_price) !== 'number') {
+      alert('商品价格输入有误或未输入！');
+      return;
+    }
+    if (!goods_marketprice || isNaN(parseInt(goods_marketprice))) {
+      alert('商品市场价输入有误或未输入');
+      return;
+    }
+    if (isNaN(parseInt(evaluation_good_star))) {
+      alert('商品评星输入有误，必须为数字');
+      return;
+    }
+    if (isNaN(parseInt(evaluation_count))) {
+      alert('商品评价数输入有误，必须为数字');
+      return;
+    }
+    if (isNaN(parseInt(goods_storage))) {
+      alert('商品库存输入有误，必须为数字');
+      return;
+    }
+    if (isNaN(parseInt(goods_salenum))) {
+      alert('商品销量输入有误，必须为数字');
+      return;
+    }
+    if (isNaN(parseInt(goods_freight))) {
+      alert('商品运费输入有误，必须为数字');
+      return;
+    }
+    if (isNaN(parseInt(goods_click))) {
+      alert('商品点击量输入有误，必须为数字');
+      return;
+    }
+    if (!goods_image) {
+      alert('商品主图为必填项目');
+      return;
+    }
+
+
+    request(url, {
       method: 'POST',
       body: JSON.stringify(queryData)
     })
@@ -75,7 +150,7 @@ class DetailModal extends React.Component {
 
   render() {
     const {keyWord} = this.props;
-    const {stepIndex, finished} = this.state;
+    const {stepIndex} = this.state;
 
     let modalTitle = '';
     switch (keyWord) {
@@ -126,46 +201,29 @@ class DetailModal extends React.Component {
             <Step>
               <StepButton onClick={() => {
                 this.setState({
-                  stepIndex: 0,
-                  finished: false
+                  stepIndex: 0
                 })
               }}>基本信息</StepButton>
             </Step>
             <Step>
               <StepButton onClick={() => {
                 this.setState({
-                  stepIndex: 1,
-                  finished: false
+                  stepIndex: 1
                 })
               }}>图片上传</StepButton>
             </Step>
             <Step>
               <StepButton onClick={() => {
                 this.setState({
-                  stepIndex: 2,
-                  finished: false
+                  stepIndex: 2
                 })
               }}>商品规格</StepButton>
             </Step>
           </Stepper>
           <div style={contentStyle}>
-            {finished ? (
-              <p>
-                <a
-                  href="#"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    this.setState({stepIndex: 0, finished: false});
-                  }}
-                >
-                  Click here
-                </a> to reset the example.
-              </p>
-            ) : (
-              <div>
-                <p>{this.getStepContent(stepIndex)}</p>
-              </div>
-            )}
+            <div>
+              <p>{this.getStepContent(stepIndex)}</p>
+            </div>
           </div>
         </div>
       </Dialog>
@@ -176,6 +234,6 @@ class DetailModal extends React.Component {
 export default connect(
   state => ({
     goodsList: state.goodsList.toJS(),
-    categoriesList : state.categoriesList.toJS()
+    categoriesList: state.categoriesList.toJS()
   })
 )(DetailModal);
