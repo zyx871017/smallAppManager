@@ -1,14 +1,21 @@
 import {fromJS} from 'immutable';
 
-const initialState = {
+const iniState = {
   activeList: [],
-  editActive: {}
+  editActive: {
+    activeName: '1元秒杀',
+    activeSummary: '限时限量抢购！！！',
+    startTime: '2017-10-21 00:00:00',
+    endTime: '2017-10-24 00:00:00',
+    image_url: '',
+
+  }
 };
 
-const activeList = (state = initialState, action) => {
+const activeList = (state = fromJS(iniState), action) => {
   switch (action.type) {
     case 'SAVE_ACTIVE_LIST':
-      return state;
+      return state.merge(fromJS({activeList: action.dataArr, total: action.total}));
     case 'PICK_ACTIVE_DETAIL':
       return state;
     case 'PATCH_ACTIVE_DETAIL':
