@@ -3,6 +3,7 @@ var path = require('path');
 var config = require('./webpack.config.js');
 var webpack = require('webpack');
 var webpackDevServer = require('webpack-dev-server');
+var eslint = require('gulp-eslint');
 
 
 gulp.task('server', function () {
@@ -21,4 +22,11 @@ gulp.task('server', function () {
         }
         console.log('Listening at http://localhost:3000!');
     })
+});
+
+gulp.task('lint', function () {
+  return gulp.src(['src/**/*.js'])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });

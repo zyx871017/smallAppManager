@@ -12,18 +12,15 @@ import {
 } from 'material-ui';
 import {styles} from './GoodsListStyles';
 
-class Category extends React.Component {
+class HotList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
   componentDidMount() {
-    request('category/get-categories-list', {})
-      .then(res => {
-        if (res.retCode === 0) {
-          console.log(res);
-        }
+    request('admin/hot-goods/list', {}, {limit: 10, offset: 0})
+      .then(() => {
       });
   }
 
@@ -90,4 +87,4 @@ class Category extends React.Component {
   }
 }
 
-export default Category;
+export default HotList;

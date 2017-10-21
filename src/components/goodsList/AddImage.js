@@ -12,7 +12,7 @@ class AddImage extends React.Component {
     this.state = {
       fileUrl: '',
       imgFieldOpen: false
-    }
+    };
   }
 
   singleFileSelect = e => {
@@ -24,7 +24,7 @@ class AddImage extends React.Component {
       that.setState({
         imgFieldOpen: true,
         fileUrl: e.target.result
-      })
+      });
     };
   };
 
@@ -161,7 +161,7 @@ class AddImage extends React.Component {
           >确认</RaisedButton>
         </Dialog>
       </div>
-    )
+    );
   }
 }
 

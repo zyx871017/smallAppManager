@@ -18,7 +18,7 @@ class DetailModal extends React.Component {
     this.state = {
       stepIndex: 0,
       fileUrl: ''
-    }
+    };
   }
 
   handleClose = () => {
@@ -30,13 +30,10 @@ class DetailModal extends React.Component {
     switch (stepIndex) {
       case 0:
         return <AddGoodsDetail keyWord={keyWord}/>;
-        break;
       case 1:
         return <AddImage keyWord={keyWord}/>;
-        break;
       case 2:
         return <AddGoodSpec keyWord={keyWord}/>;
-        break;
       default:
         break;
     }
@@ -66,7 +63,6 @@ class DetailModal extends React.Component {
     switch (keyWord) {
       case 'showDetail':
         return;
-        break;
       case 'editDetail':
         url = 'admin/goods/edit-goods';
         break;
@@ -143,8 +139,7 @@ class DetailModal extends React.Component {
       method: 'POST',
       body: JSON.stringify(queryData)
     })
-      .then(function (res) {
-        console.log(res);
+      .then(function () {
       });
   };
 
@@ -202,21 +197,21 @@ class DetailModal extends React.Component {
               <StepButton onClick={() => {
                 this.setState({
                   stepIndex: 0
-                })
+                });
               }}>基本信息</StepButton>
             </Step>
             <Step>
               <StepButton onClick={() => {
                 this.setState({
                   stepIndex: 1
-                })
+                });
               }}>图片上传</StepButton>
             </Step>
             <Step>
               <StepButton onClick={() => {
                 this.setState({
                   stepIndex: 2
-                })
+                });
               }}>商品规格</StepButton>
             </Step>
           </Stepper>
@@ -227,7 +222,7 @@ class DetailModal extends React.Component {
           </div>
         </div>
       </Dialog>
-    )
+    );
   }
 }
 

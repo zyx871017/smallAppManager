@@ -2,8 +2,10 @@ import React from 'react';
 import {Menu, MenuItem, Paper, AppBar, FlatButton} from 'material-ui';
 import {styles} from './HeaderStyle';
 import {Route} from 'react-router-dom';
+import HotList from './../hotList/HotList';
 import GoodsList from './../goodsList/GoodsList';
 import Category from './../category/Category';
+import ActiveList from './../activeList/ActiveList';
 import OrderList from './../orderList/OrderList';
 
 class Header extends React.Component {
@@ -12,7 +14,7 @@ class Header extends React.Component {
     const pathName = this.props.location.pathname.split('/')[2];
     this.state = {
       menuSelected: pathName
-    }
+    };
   }
 
   menuOnchange = (e, v) => {
@@ -57,17 +59,21 @@ class Header extends React.Component {
               <MenuItem value="goodsList" primaryText="商品列表"/>
               <MenuItem value="category" primaryText="分类列表"/>
               <MenuItem value="orderList" primaryText="订单列表"/>
-              <MenuItem value="null" primaryText="暂未开发"/>
+              <MenuItem value="activeList" primaryText="活动列表"/>
+              {/*<MenuItem value="hotList" primaryText="热卖产品"/>*/}
+              {/*<MenuItem value="null" primaryText="暂未开发"/>*/}
             </Menu>
           </Paper>
           <div style={styles.tableContainer}>
             <Route path="/main/goodsList" component={GoodsList}/>
+            <Route path="/main/hotList" component={HotList}/>
             <Route path="/main/category" component={Category}/>
             <Route path="/main/orderList" component={OrderList}/>
+            <Route path="/main/activeList" component={ActiveList}/>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

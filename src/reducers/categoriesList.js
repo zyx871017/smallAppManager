@@ -5,7 +5,7 @@ const iniState = {
 };
 
 const categoriesList = (state = fromJS(iniState), action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'SAVE_CATEGORIES_LIST':
       return state.set('categoriesList', action.dataArr);
     case 'PATCH_GOOD_DETAIL':

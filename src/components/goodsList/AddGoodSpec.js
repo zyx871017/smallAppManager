@@ -11,7 +11,7 @@ class AddGoodSpec extends React.Component {
     this.state = {
       fileUrl: '',
       imgFieldOpen: false
-    }
+    };
   }
 
   addSpec = () => {
@@ -33,7 +33,7 @@ class AddGoodSpec extends React.Component {
               value={item.key}
               disabled={isDisabled}
               onChange={e => {
-                this.props.editSpec(idx, {key: e.target.value})
+                this.props.editSpec(idx, {key: e.target.value});
               }}
               style={styles.specKey}
             />:
@@ -43,7 +43,7 @@ class AddGoodSpec extends React.Component {
               value={item.value}
               disabled={isDisabled}
               onChange={e => {
-                this.props.editSpec(idx, {value: e.target.value})
+                this.props.editSpec(idx, {value: e.target.value});
               }}
               style={styles.specValue}
             />
@@ -64,7 +64,7 @@ class AddGoodSpec extends React.Component {
           >需要添加新的规格信息，点击添加按钮，左侧填写规格标题，右侧填写规格信息！</span>
         </div>
       </div>
-    )
+    );
   }
 }
 

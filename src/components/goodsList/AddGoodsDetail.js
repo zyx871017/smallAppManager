@@ -6,7 +6,7 @@ import {
   MenuItem,
 } from 'material-ui';
 import {connect} from 'react-redux';
-import { goodsList } from './../../actions';
+import {goodsList} from './../../actions';
 
 class AddGoodsDetail extends React.Component {
   constructor(props) {
@@ -17,26 +17,11 @@ class AddGoodsDetail extends React.Component {
 
     const {keyWord, categoriesList, goodsList} = this.props;
 
-    let modalTitle = '';
-    switch (keyWord) {
-      case 'showDetail':
-        modalTitle = '商品详情';
-        break;
-      case 'editDetail':
-        modalTitle = '编辑详情';
-        break;
-      case 'addGoods':
-        modalTitle = '添加商品';
-        break;
-      default:
-        break;
-    }
-
     const isDisabled = (keyWord === 'showDetail');
 
     const editGood = goodsList.editGood;
 
-    return(
+    return (
       <div>
         <TextField
           hintText="请输入商品名"
@@ -46,7 +31,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_name || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_name: e.target.value})
+            this.props.patchGoodDetail({goods_name: e.target.value});
           }}
         />
         <Divider/>
@@ -58,14 +43,14 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.category_id || 1}
           onChange={(e, i, v) => {
-              this.props.patchGoodDetail({category_id: v})
+            this.props.patchGoodDetail({category_id: v});
           }}
         >
           {
             categoriesList.categoriesList.map(item => {
               return (
                 <MenuItem value={item.id} primaryText={item.name}/>
-              )
+              );
             })
           }
         </SelectField>
@@ -78,7 +63,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_jingle || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_jingle: e.target.value})
+            this.props.patchGoodDetail({goods_jingle: e.target.value});
           }}
         />
         <Divider/>
@@ -90,7 +75,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_price || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_price: e.target.value})
+            this.props.patchGoodDetail({goods_price: e.target.value});
           }}
         />
         <Divider/>
@@ -102,7 +87,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_marketprice || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_marketprice: e.target.value})
+            this.props.patchGoodDetail({goods_marketprice: e.target.value});
           }}
         />
         <Divider/>
@@ -114,7 +99,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_storage || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_storage: e.target.value})
+            this.props.patchGoodDetail({goods_storage: e.target.value});
           }}
         />
         <Divider/>
@@ -126,7 +111,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_salenum || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_salenum: e.target.value})
+            this.props.patchGoodDetail({goods_salenum: e.target.value});
           }}
         />
         <Divider/>
@@ -138,7 +123,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_click || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_click: e.target.value})
+            this.props.patchGoodDetail({goods_click: e.target.value});
           }}
         />
         <Divider/>
@@ -150,7 +135,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.goods_freight || ''}
           onChange={e => {
-            this.props.patchGoodDetail({goods_freight: e.target.value})
+            this.props.patchGoodDetail({goods_freight: e.target.value});
           }}
         />
         <Divider/>
@@ -162,7 +147,7 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.evaluation_count || ''}
           onChange={e => {
-            this.props.patchGoodDetail({evaluation_count: e.target.value})
+            this.props.patchGoodDetail({evaluation_count: e.target.value});
           }}
         />
         <Divider/>
@@ -174,17 +159,17 @@ class AddGoodsDetail extends React.Component {
           disabled={isDisabled}
           value={editGood.evaluation_good_star || ''}
           onChange={e => {
-            this.props.patchGoodDetail({evaluation_good_star: e.target.value})
+            this.props.patchGoodDetail({evaluation_good_star: e.target.value});
           }}
         />
         <Divider/>
       </div>
-    )
+    );
   }
 }
 
 const dispatchSaveGoodsList = dispatch => {
-  return{
+  return {
     saveGoodsList: dataArr => {
       dispatch(goodsList.saveGoodsList(dataArr));
     },
@@ -194,13 +179,13 @@ const dispatchSaveGoodsList = dispatch => {
     patchGoodDetail: dataObj => {
       dispatch(goodsList.patchGoodDetail(dataObj));
     }
-  }
+  };
 };
 
 export default connect(
   state => ({
     goodsList: state.goodsList.toJS(),
-    categoriesList : state.categoriesList.toJS()
+    categoriesList: state.categoriesList.toJS()
   }),
   dispatchSaveGoodsList
 )(AddGoodsDetail);

@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import goodsList from './goodsList';
 import categoriesList from './categoriesList';
 import ordersList from './ordersList';
+import activeList from './activeList';
 
 const smallApp = combineReducers({
   goodsList,
   categoriesList,
-  ordersList
+  ordersList,
+  activeList
 });
 
-export default smallApp
+export default smallApp;

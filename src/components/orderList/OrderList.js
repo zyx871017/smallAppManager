@@ -91,9 +91,9 @@ class OrderList extends React.Component {
           method: 'detail'
         }, () => {
           that.props.pickOrderDetail(item);
-        })
+        });
       }
-    })
+    });
   };
 
   openDeliver = id => {
@@ -107,6 +107,9 @@ class OrderList extends React.Component {
   render() {
     const dataRow = this.props.ordersList.ordersList;
     const orderDetail = this.props.ordersList.orderDetail;
+    const detailAddr = orderDetail.userAddressInfo;
+    const addressDetail = detailAddr?`${detailAddr.province}${detailAddr.province === detailAddr.city ? '' : detailAddr.city}
+    ${detailAddr.district}${detailAddr.detail}`: '';
     const actions = [
       <RaisedButton
         label="取消"
@@ -159,8 +162,7 @@ class OrderList extends React.Component {
                       <RaisedButton
                         primary={true}
                         onClick={() => {
-                          console.log(item.id);
-                          this.showModal(item.id)
+                          this.showModal(item.id);
                         }}
                       >查看详情</RaisedButton>
                       {
@@ -168,7 +170,7 @@ class OrderList extends React.Component {
                           <RaisedButton
                             primary={true}
                             onClick={() => {
-                              this.refund(item.orderNo)
+                              this.refund(item.orderNo);
                             }}
                           >确认退货</RaisedButton>
                         ) : null
@@ -185,7 +187,7 @@ class OrderList extends React.Component {
                       }
                     </TableRowColumn>
                   </TableRow>
-                )
+                );
               })
             }
           </TableBody>
@@ -218,11 +220,12 @@ class OrderList extends React.Component {
               <ListItem primaryText={`订单时间: ${orderDetail.createTime}`}/>
               <ListItem primaryText={`订单价格: ${orderDetail.actual_price / 100}`}/>
               <ListItem primaryText={`订单原价: ${orderDetail.original_price / 100}`}/>
+              <ListItem primaryText={`发货地址: ${addressDetail}`}/>
               <ListItem primaryText={`快递单号: ${orderDetail.trackingNo||'未发货'}`}/>
             </List>)}
         </Dialog>
       </Paper>
-    )
+    );
   }
 }
 

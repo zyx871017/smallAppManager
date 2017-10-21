@@ -7,7 +7,7 @@ class Pagination extends React.Component {
     super(props);
     this.state = {
       index: 1
-    }
+    };
   }
 
   parsePage = (pages, index) => {
@@ -30,8 +30,8 @@ class Pagination extends React.Component {
     this.setState({
       index
     }, () => {
-      that.props.pageChange(index)
-    })
+      that.props.pageChange(index);
+    });
 
   };
 
@@ -55,7 +55,7 @@ class Pagination extends React.Component {
           label="<"
           primary={true}
           onClick={() => {
-            this.skipTo(index - 1)
+            this.skipTo(index - 1);
           }}
         />
         {pageButtons.map(item => {
@@ -69,7 +69,7 @@ class Pagination extends React.Component {
                   this.skipTo(item);
                 }}
               />
-            )
+            );
           } else if (item !== '...') {
             return (
               <FlatButton
@@ -80,7 +80,7 @@ class Pagination extends React.Component {
                 }}
                 primary={true}
               />
-            )
+            );
           }
           return (
             <FlatButton
@@ -89,7 +89,7 @@ class Pagination extends React.Component {
               label={item}
               primary={true}
             />
-          )
+          );
         })}
         <FlatButton
           style={styles.button}
@@ -108,7 +108,7 @@ class Pagination extends React.Component {
           }}
         />
       </div>
-    )
+    );
   }
 }
 

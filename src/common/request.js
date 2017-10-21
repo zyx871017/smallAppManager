@@ -14,9 +14,9 @@ module.exports.request = function (url, option, data) {
   const token = localStorage.getItem('token')||'';
   let queryString = '';
   if (data) {
-    Object.keys(data).forEach((value, index) => {
+    Object.keys(data).forEach((value) => {
       queryString += `&${value}=${data[value]}`;
-    })
+    });
   }
   const opt = Object.assign({}, {
     headers: {
@@ -31,7 +31,7 @@ module.exports.request = function (url, option, data) {
     fetch(`${common.apiPrefix}${url}`, opt)
       .then(function (response) {
         if (response.status === 200) {
-          return response.json()
+          return response.json();
         } else {
           reject(resolve);
         }
@@ -47,7 +47,7 @@ module.exports.request = function (url, option, data) {
         else {
           reject(res);
         }
-      })
+      });
   })
     .catch(function (res) {
       alert('请求出错，请稍后重试！');

@@ -29,7 +29,7 @@ class GoodsList extends React.Component {
 
   componentDidMount() {
     const that = this;
-    request('home/goods-list', {}, {limit: 10, offset: 0})
+    request('admin/home/goods-list', {}, {limit: 10, offset: 0})
       .then(res => {
         if (res.retCode === 0) {
           that.props.saveGoodsList(res.data.dataArr, res.data.total);
@@ -47,7 +47,7 @@ class GoodsList extends React.Component {
   showModal = (id, key) => {
     if (id !== null) {
       const that = this;
-      request(`home/get-goods-info/${id}`, {})
+      request(`admin/home/get-goods-info/${id}`, {})
         .then(res => {
           if (res.retCode === 0) {
             that.props.pickGoodDetail(res.data);
@@ -65,12 +65,12 @@ class GoodsList extends React.Component {
   modalClose = () => {
     this.setState({
       modalShow: false
-    })
+    });
   };
 
   pageChange = index => {
     const that = this;
-    request('home/goods-list', {}, {limit: 10, offset: (index - 1) * 10})
+    request('admin/home/goods-list', {}, {limit: 10, offset: (index - 1) * 10})
       .then(res => {
         if (res.retCode === 0) {
           that.props.saveGoodsList(res.data.dataArr, res.data.total);
@@ -119,19 +119,19 @@ class GoodsList extends React.Component {
                       <RaisedButton
                         primary={true}
                         onClick={() => {
-                          this.showModal(item.id, 'showDetail')
+                          this.showModal(item.id, 'showDetail');
                         }}
                       >查看详情</RaisedButton>
                       <RaisedButton
                         primary={true}
                         onClick={() => {
-                          this.showModal(item.id, 'editDetail')
+                          this.showModal(item.id, 'editDetail');
                         }}
                       >编辑</RaisedButton>
                       <RaisedButton primary={true}>删除</RaisedButton>
                     </TableRowColumn>
                   </TableRow>
-                )
+                );
               })
             }
           </TableBody>
@@ -147,7 +147,7 @@ class GoodsList extends React.Component {
           handleClose={this.modalClose}
         />
       </Paper>
-    )
+    );
   }
 }
 
