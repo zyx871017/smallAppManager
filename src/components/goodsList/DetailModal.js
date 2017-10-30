@@ -217,7 +217,7 @@ class DetailModal extends React.Component {
           </Stepper>
           <div style={contentStyle}>
             <div>
-              <p>{this.getStepContent(stepIndex)}</p>
+              {this.getStepContent(stepIndex)}
             </div>
           </div>
         </div>

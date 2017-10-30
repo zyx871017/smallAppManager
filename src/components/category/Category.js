@@ -22,7 +22,7 @@ class Category extends React.Component {
     request('category/get-categories-list', {})
       .then(res => {
         if (res.retCode === 0) {
-          console.log(res);
+          return;
         }
       });
   }

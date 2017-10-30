@@ -1,5 +1,4 @@
 const path = require('path');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = {
@@ -21,8 +20,6 @@ module.exports = {
       context: __dirname,
       manifest: require('./dist/manifest.json')
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new UglifyJSPlugin()
   ],
   module: {
     loaders: [

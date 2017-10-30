@@ -1,6 +1,6 @@
 import React from 'react';
 import {request} from './../../common/request';
-import {activeType} from './../../common/common';
+import {activeType, noDataActive} from './../../common/common';
 import {
   Table,
   TableBody,
@@ -15,25 +15,62 @@ import {styles} from './GoodsListStyles';
 import {connect} from 'react-redux';
 import {activeList} from './../../actions';
 import Pagination from './../common/Pagination';
+import DetailModal from './DetailModal';
 
 class ActiveList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalShow: false,
+      keyWord: ''
+    };
   }
 
   componentDidMount() {
     const that = this;
     request('admin/activity/list', {}, {limit: 10, offset: 0})
       .then(res => {
-        if(res.retCode == 0){
+        if (res.retCode == 0) {
           that.props.saveActiveList(res.data, res.total);
         }
       });
   }
 
+  showModal = (id, key) => {
+    if (id === null) {
+      this.props.pickActiveDetail(noDataActive);
+    } else {
+      const activeList = this.props.activeList.activeList;
+      activeList.forEach(item => {
+        if (item.id === id) {
+          this.props.pickActiveDetail(item);
+        }
+      });
+    }
+    this.setState({
+      keyWord: key,
+      modalShow: true
+    });
+  };
+
+  modalClose = () => {
+    this.setState({
+      modalShow: false
+    });
+  };
+
+  deleteActive = id =>{
+    request(`admin/activity/del/${id}`, {
+      method: 'DELETE'
+    })
+      .then(function (res) {
+        if(res.retCode === 0){
+          alert('删除成功');
+        }
+      });
+  };
+
   render() {
-    console.log()
     const dataRow = this.props.activeList.activeList;
     return (
       <Paper>
@@ -85,7 +122,7 @@ class ActiveList extends React.Component {
                           this.showModal(item.id, 'editDetail');
                         }}
                       >编辑</RaisedButton>
-                      <RaisedButton primary={true}>删除</RaisedButton>
+                      <RaisedButton onClick={()=>{this.deleteActive(item.id);}} primary={true}>删除</RaisedButton>
                     </TableRowColumn>
                   </TableRow>
                 );
@@ -93,6 +130,16 @@ class ActiveList extends React.Component {
             }
           </TableBody>
         </Table>
+        <Pagination
+          total={this.props.activeList.total}
+          limit={10}
+          pageChange={this.pageChange}
+        />
+        <DetailModal
+          keyWord={this.state.keyWord}
+          open={this.state.modalShow}
+          handleClose={this.modalClose}
+        />
       </Paper>
     );
   }

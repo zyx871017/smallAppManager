@@ -49,7 +49,7 @@ class AddGoodsDetail extends React.Component {
           {
             categoriesList.categoriesList.map(item => {
               return (
-                <MenuItem value={item.id} primaryText={item.name}/>
+                <MenuItem value={item.id} key={item.id} primaryText={item.name}/>
               );
             })
           }

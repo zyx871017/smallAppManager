@@ -1,6 +1,6 @@
 module.exports = {
   apiPrefix: 'https://www.qaformath.com/zbuniserver-api/',
-  noDataGood:{
+  noDataGood: {
     goods_name: '',
     goods_image: '',
     goods_type_id: 0,
@@ -23,17 +23,41 @@ module.exports = {
     evaluation_count: 0,
   },
   status: {
-    '1': '待付款',
-    '2': '待收货',
-    '3': '已取消',
-    '4': '退款中',
-    '5': '已退款',
-    '6': '退款失败',
-    '7': '已完成'
+    1: '待付款',
+    2: '待收货',
+    3: '已取消',
+    4: '退款中',
+    5: '已退款',
+    6: '退款失败',
+    7: '已完成'
   },
   activeType: {
-    '1': '满减',
-    '2': '优惠券',
-    '3': '优惠'
+    1: '满减',
+    2: '优惠券',
+    3: '优惠'
+  },
+  noDataActive: {
+    discount: 1,
+    goods_list: [],
+    goods_count: [],
+    start_time: null,
+    image_url: '',
+    create_time: '',
+    end_time: null,
+    active_type: 1,
+    title: '',
+    sort: 4,
+  },
+  discountType: {
+    1:'1折优惠',
+    2:'2折优惠',
+    3:'3折优惠',
+    4:'4折优惠',
+    5:'5折优惠',
+    6:'6折优惠',
+    7:'7折优惠',
+    8:'8折优惠',
+    9:'9折优惠',
+    10:'1元秒杀'
   }
 };

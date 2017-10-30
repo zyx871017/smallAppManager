@@ -3,21 +3,21 @@ export const saveActiveList = (dataArr, total) => {
     type: 'SAVE_ACTIVE_LIST',
     dataArr,
     total
-  }
+  };
 };
 
 export const pickActiveDetail = (dataObj) => {
   return {
     type: 'PICK_ACTIVE_DETAIL',
     dataObj
-  }
+  };
 };
 
 export const patchActiveDetail = (dataObj) => {
   return {
     type: 'PATCH_ACTIVE_DETAIL',
     dataObj
-  }
+  };
 };
 
 export const patchActiveList = (id, dataObj) => {
@@ -25,20 +25,22 @@ export const patchActiveList = (id, dataObj) => {
     type: 'PATCH_ACTIVE_LIST',
     id,
     dataObj
-  }
+  };
 };
 
-export const addActiveGoods = () => {
+export const addActiveGoods = id => {
   return {
     type: 'ADD_ACTIVE_GOODS',
-  }
+    id
+  };
 };
 
-export const editActiveGoods = (number) => {
+export const editGoodCount = (idx, value) => {
   return {
-    type: 'EDIT_ACTIVE_GOODS',
-    number
-  }
+    type: 'EDIT_GOOD_COUNT',
+    idx,
+    value
+  };
 };
 
 

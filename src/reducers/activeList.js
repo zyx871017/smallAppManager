@@ -3,11 +3,17 @@ import {fromJS} from 'immutable';
 const iniState = {
   activeList: [],
   editActive: {
-    activeName: '1元秒杀',
-    activeSummary: '限时限量抢购！！！',
-    startTime: '2017-10-21 00:00:00',
-    endTime: '2017-10-24 00:00:00',
-    image_url: '',
+    discount: 9,
+    goods_list: [],
+    goods_count: [],
+    start_time: null,
+    image_url: 'https://image.qaformath.com/computer_superapp/banner01.jpg',
+    create_time: '2017-10-16 16:10:14',
+    end_time: null,
+    active_type: 3,
+    title: '丢丢丢',
+    id: 4,
+    sort: 4,
 
   }
 };
@@ -17,15 +23,22 @@ const activeList = (state = fromJS(iniState), action) => {
     case 'SAVE_ACTIVE_LIST':
       return state.merge(fromJS({activeList: action.dataArr, total: action.total}));
     case 'PICK_ACTIVE_DETAIL':
-      return state;
+      return state.set('editActive', fromJS(action.dataObj));
     case 'PATCH_ACTIVE_DETAIL':
+      return state.mergeDeep(fromJS({editActive: action.dataObj}));
+    case 'ADD_ACTIVE_GOODS': {
+      const index = state.getIn(['editActive', 'goods_list']).indexOf(action.id);
+      if (index >= 0) {
+        state = state.updateIn(['editActive', 'goods_list'], arr => arr.delete(index));
+        state = state.updateIn(['editActive', 'goods_count'], arr => arr.delete(index));
+      } else {
+        state = state.updateIn(['editActive', 'goods_list'], arr => arr.push(action.id));
+        state = state.updateIn(['editActive', 'goods_count'], arr => arr.push(1));
+      }
       return state;
-    case 'PATCH_ACTIVE_LIST':
-      return state;
-    case 'ADD_ACTIVE_GOODS':
-      return state;
-    case 'EDIT_ACTIVE_GOODS':
-      return state;
+    }
+    case 'EDIT_GOOD_COUNT':
+      return state.setIn(['editActive', 'goods_count', action.idx], parseInt(action.value));
     default:
       return state;
   }

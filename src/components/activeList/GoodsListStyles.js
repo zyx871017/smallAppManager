@@ -32,11 +32,11 @@ module.exports.styles = {
     display: 'block',
     width: '150px',
     position: 'relative',
-    marginBottom: '12px',
+    margin: '0 auto 12px',
   },
   mainImage: {
-    width: 300,
-    height: 214,
+    width: 600,
+    height: 190,
     marginBottom: '12px',
     backgroundColor: '#fff',
     display: 'block',
@@ -65,5 +65,25 @@ module.exports.styles = {
     width: 100,
     height: 40,
     borderRadius: '2%',
+  },
+  categoryContent: {
+    width: 100,
+    float: 'left',
+    height: 350,
+    overflowY: 'auto',
+    overflowX: 'hidden'
+  },
+  goodsListContent: {
+    width: 460,
+    float: 'left',
+    height: 48
+  },
+  goodsCheckItem: {
+    float: 'left',
+    height: 48,
+    width: 160,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
   }
 };

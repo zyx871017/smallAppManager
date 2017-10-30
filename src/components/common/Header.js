@@ -29,18 +29,19 @@ class Header extends React.Component {
     this.props.history.replace('/login');
   };
 
+  linkToWX = () => {
+    window.open('https://mpkf.weixin.qq.com/');
+  };
+
   render() {
     return (
       <div style={{width: '100%'}}>
-
         <div style={styles.titleBarContent}>
           <AppBar
             style={styles.titleBar}
             title="小程序后台管理系统"
             iconStyleLeft={{display: 'none'}}
-            iconElementRight={
-              <FlatButton label="登出" onClick={this.logout}/>
-            }
+            iconElementRight={<FlatButton label="登出" onClick={this.logout}/>}
           />
         </div>
         <div style={{width: '1230px', margin: '0 auto'}}>
@@ -57,12 +58,18 @@ class Header extends React.Component {
               onChange={this.menuOnchange}
             >
               <MenuItem value="goodsList" primaryText="商品列表"/>
-              <MenuItem value="category" primaryText="分类列表"/>
+              {/*<MenuItem value="category" primaryText="分类列表"/>*/}
               <MenuItem value="orderList" primaryText="订单列表"/>
               <MenuItem value="activeList" primaryText="活动列表"/>
               {/*<MenuItem value="hotList" primaryText="热卖产品"/>*/}
               {/*<MenuItem value="null" primaryText="暂未开发"/>*/}
             </Menu>
+            <FlatButton
+              style={{width: '200px', height: '48px'}}
+              primary={true}
+              label="打开客服窗口"
+              onClick={this.linkToWX}
+            />
           </Paper>
           <div style={styles.tableContainer}>
             <Route path="/main/goodsList" component={GoodsList}/>
