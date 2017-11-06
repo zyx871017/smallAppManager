@@ -3,7 +3,7 @@ module.exports = {
   noDataGood: {
     goods_name: '',
     goods_image: '',
-    goods_type_id: 0,
+    goods_type_id: 1,
     goods_collect: 0,
     category_id: 0,
     goods_jingle: '',

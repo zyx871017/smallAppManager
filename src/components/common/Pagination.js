@@ -55,7 +55,9 @@ class Pagination extends React.Component {
           label="<"
           primary={true}
           onClick={() => {
-            this.skipTo(index - 1);
+            if (index > 1) {
+              this.skipTo(index - 1);
+            }
           }}
         />
         {pageButtons.map((item, idx) => {
@@ -99,7 +101,9 @@ class Pagination extends React.Component {
           label=">"
           primary={true}
           onClick={() => {
-            this.skipTo(index + 1);
+            if (index < pages) {
+              this.skipTo(index + 1);
+            }
           }}
         />
         <FlatButton

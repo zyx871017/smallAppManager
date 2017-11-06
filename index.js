@@ -19,6 +19,7 @@ ReactDOM.render((
     <Provider store={store}>
       <HashRouter>
         <div>
+          <Route path="/" render={()=>(<Redirect to="/main/goodsList" />)}/>
           <Route path="/main" component={Header}/>
           <Route path="/login" component={Login}/>
         </div>

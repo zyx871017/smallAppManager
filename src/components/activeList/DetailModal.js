@@ -77,7 +77,6 @@ class DetailModal extends React.Component {
         return;
     }
 
-    console.log(queryData);
     // 数据校验
     const {
       title,
@@ -105,15 +104,15 @@ class DetailModal extends React.Component {
       alert('活动主图为必填项目');
       return;
     }
-    if(!start_time){
+    if (!start_time) {
       alert('活动开始时间不能为空！');
       return;
     }
-    if(!end_time){
+    if (!end_time) {
       alert('活动结束时间不能为空！');
       return;
     }
-    if(!goods_list){
+    if (!goods_list) {
       alert('活动必须有参加活动的商品');
     }
 
@@ -124,9 +123,9 @@ class DetailModal extends React.Component {
     request(url, {
       method: 'POST',
       body: JSON.stringify(queryData)
-     })
+    })
       .then(function (res) {
-        if(res.retCode === 0){
+        if (res.retCode === 0) {
           alert('提交成功');
           that.props.handleClose();
         }

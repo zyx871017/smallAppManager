@@ -26,7 +26,7 @@ class AddGoodSpec extends React.Component {
     return (
       <div>
         {goodSpec.map((item, idx) => (
-          <div style={styles.specItem}>
+          <div style={styles.specItem} key={idx}>
             <TextField
               hintText="请输入规格标题"
               floatingLabelText="规格标题"

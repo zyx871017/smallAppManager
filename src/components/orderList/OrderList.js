@@ -176,7 +176,7 @@ class OrderList extends React.Component {
                         ) : null
                       }
                       {
-                        item.status === 2 ? (
+                        (item.status === 2&&!item.trackingNo )? (
                           <RaisedButton
                             primary={true}
                             onClick={() => {

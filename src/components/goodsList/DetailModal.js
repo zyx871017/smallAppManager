@@ -74,10 +74,12 @@ class DetailModal extends React.Component {
     }
     const goods_spec = queryData.goods_spec;
     const goodsSpec = {};
-    goods_spec.forEach(item => {
-      const {key, value} = item;
-      goodsSpec[key] = value;
-    });
+    if (goods_spec instanceof Array) {
+      goods_spec.forEach(item => {
+        const {key, value} = item;
+        goodsSpec[key] = value;
+      });
+    }
     queryData.goods_spec = goodsSpec;
     // 数据校验
     const {
@@ -134,12 +136,16 @@ class DetailModal extends React.Component {
       return;
     }
 
-
+    const that = this;
     request(url, {
       method: 'POST',
       body: JSON.stringify(queryData)
     })
-      .then(function () {
+      .then(function (res) {
+        if (res.retCode === 0) {
+          alert('添加成功');
+          that.props.handleClose();
+        }
       });
   };
 

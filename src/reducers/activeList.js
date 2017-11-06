@@ -38,7 +38,10 @@ const activeList = (state = fromJS(iniState), action) => {
       return state;
     }
     case 'EDIT_GOOD_COUNT':
-      return state.setIn(['editActive', 'goods_count', action.idx], parseInt(action.value));
+      if (isNaN(action.value)) {
+        return state;
+      }
+      return state.setIn(['editActive', 'goods_count', action.idx], parseInt(action.value || 0));
     default:
       return state;
   }

@@ -33,6 +33,7 @@ class Login extends React.Component {
       .then(function (res) {
         if (res.retCode === 0) {
           localStorage.setItem('token', res.token);
+          localStorage.setItem('username', username);
           that.props.history.push('/main/goodsList');
         } else {
           alert(res.msg);

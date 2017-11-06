@@ -34,6 +34,7 @@ class Header extends React.Component {
   };
 
   render() {
+    const username = localStorage.getItem('username');
     return (
       <div style={{width: '100%'}}>
         <div style={styles.titleBarContent}>
@@ -41,7 +42,7 @@ class Header extends React.Component {
             style={styles.titleBar}
             title="小程序后台管理系统"
             iconStyleLeft={{display: 'none'}}
-            iconElementRight={<FlatButton label="登出" onClick={this.logout}/>}
+            iconElementRight={<FlatButton label={`${username} 登出`} onClick={this.logout}/>}
           />
         </div>
         <div style={{width: '1230px', margin: '0 auto'}}>

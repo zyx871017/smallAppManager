@@ -44,6 +44,7 @@
     "alert": true,
     "FileReader": true,
     "localStorage": true,
-    "fetch": true
+    "fetch": true,
+    "confirm": true
   }
 }

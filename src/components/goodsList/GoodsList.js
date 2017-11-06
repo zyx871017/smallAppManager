@@ -27,6 +27,16 @@ class GoodsList extends React.Component {
     };
   }
 
+  getGoodsList() {
+    const that = this;
+    request('admin/home/goods-list', {}, {limit: 10, offset: 0})
+      .then(res => {
+        if (res.retCode === 0) {
+          that.props.saveGoodsList(res.data.dataArr, res.data.total);
+        }
+      });
+  }
+
   componentDidMount() {
     const that = this;
     request('admin/home/goods-list', {}, {limit: 10, offset: 0})
@@ -63,6 +73,7 @@ class GoodsList extends React.Component {
   };
 
   modalClose = () => {
+    this.pageChange(1);
     this.setState({
       modalShow: false
     });
@@ -76,6 +87,20 @@ class GoodsList extends React.Component {
           that.props.saveGoodsList(res.data.dataArr, res.data.total);
         }
       });
+  };
+
+  deleteGoods = id => {
+    const getConfirm = confirm('确定要删除吗');
+    if (getConfirm) {
+      request(`admin/goods/${id}`, {
+        method: 'DELETE'
+      })
+        .then(res => {
+          if (res.retCode === 0) {
+            this.getGoodsList();
+          }
+        });
+    }
   };
 
   render() {
@@ -128,7 +153,12 @@ class GoodsList extends React.Component {
                           this.showModal(item.id, 'editDetail');
                         }}
                       >编辑</RaisedButton>
-                      <RaisedButton primary={true}>删除</RaisedButton>
+                      <RaisedButton
+                        primary={true}
+                        onClick={() => {
+                          this.deleteGoods(item.id);
+                        }}
+                      >删除</RaisedButton>
                     </TableRowColumn>
                   </TableRow>
                 );
@@ -156,7 +186,7 @@ export default connect(
     goodsList: state.goodsList.toJS()
   }),
   dispatch => ({
-    saveGoodsList: (dataArr,total) => dispatch(goodsList.saveGoodsList(dataArr,total)),
+    saveGoodsList: (dataArr, total) => dispatch(goodsList.saveGoodsList(dataArr, total)),
     saveCategoriesList: dataObj => dispatch(categoriesList.saveCategoriesList(dataObj)),
     pickGoodDetail: dataObj => dispatch(goodsList.pickGoodDetail(dataObj))
   })
