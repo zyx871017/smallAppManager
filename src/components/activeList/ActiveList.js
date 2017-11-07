@@ -34,6 +34,10 @@ class ActiveList extends React.Component {
           that.props.saveActiveList(res.data, res.total);
         }
       });
+    request('admin/home/goods-list', {}, {})
+      .then(res => {
+        that.props.saveSelectList(res.data.dataArr);
+      })
   }
 
   showModal = (id, key) => {
@@ -151,6 +155,7 @@ export default connect(
   }),
   dispatch => ({
     saveActiveList: (dataArr, total) => dispatch(activeList.saveActiveList(dataArr, total)),
-    pickActiveDetail: (dataObj) => dispatch(activeList.pickActiveDetail(dataObj))
+    pickActiveDetail: (dataObj) => dispatch(activeList.pickActiveDetail(dataObj)),
+    saveSelectList: dataArr => dispatch(activeList.saveSelectList(dataArr))
   })
 )(ActiveList);

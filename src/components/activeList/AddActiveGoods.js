@@ -32,7 +32,7 @@ class AddActiveGoods extends React.Component {
   render() {
     const goodList = this.props.activeList.editActive.goods_list;
     const categoriesList = this.props.categoriesList.categoriesList;
-    const goodsList = this.props.goodsList.goodsList;
+    const goodsList = this.props.activeList.selectList;
     const keyWord = this.props.keyWord;
     const isDisabled = (keyWord === 'showDetail');
     return (

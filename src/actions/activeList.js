@@ -44,4 +44,9 @@ export const editGoodCount = (idx, value) => {
 };
 
 
-
+export const saveSelectList = dataArr => {
+  return {
+    type: 'SAVE_SELECT_LIST',
+    dataArr
+  }
+};

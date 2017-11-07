@@ -2,6 +2,7 @@ import {fromJS} from 'immutable';
 
 const iniState = {
   activeList: [],
+  selectList: [],
   editActive: {
     discount: 9,
     goods_list: [],
@@ -42,6 +43,8 @@ const activeList = (state = fromJS(iniState), action) => {
         return state;
       }
       return state.setIn(['editActive', 'goods_count', action.idx], parseInt(action.value || 0));
+    case 'SAVE_SELECT_LIST':
+      return state.merge(fromJS({selectList: action.dataArr}));
     default:
       return state;
   }
