@@ -39,46 +39,6 @@ class AddActiveDetail extends React.Component {
           }}
         />
         <Divider/>
-        <SelectField
-          hintText="请选择活动类型"
-          floatingLabelText="活动类型"
-          style={{width: '100%'}}
-          underlineShow={false}
-          disabled={isDisabled}
-          value={active_type || '1'}
-          onChange={(e, i, v) => {
-            this.props.patchActiveDetail({active_type: v});
-          }}
-        >
-          {
-            Object.keys(activeType).map(item => {
-              return (
-                <MenuItem value={item} key={item} primaryText={activeType[item]}/>
-              );
-            })
-          }
-        </SelectField>
-        <Divider/>
-        <SelectField
-          hintText="请选择活动优惠力度"
-          floatingLabelText="优惠力度"
-          style={{width: '100%'}}
-          underlineShow={false}
-          disabled={isDisabled}
-          value={discount || '1'}
-          onChange={(e, i, v) => {
-            this.props.patchActiveDetail({discount: v});
-          }}
-        >
-          {
-            Object.keys(discountType).map(item => {
-              return (
-                <MenuItem value={item} key={item} primaryText={discountType[item]}/>
-              );
-            })
-          }
-        </SelectField>
-        <Divider/>
         <TextField
           hintText="请输入活动开始时间"
           floatingLabelText="开始时间(yyyy-mm-dd hh:mm:ss)"

@@ -9,7 +9,6 @@ import React from 'react';
 import AddActiveDetail from './AddActiveDetail';
 import AddActiveImage from './AddActiveImage';
 import AddActiveGoods from './AddActiveGoods';
-import EditGoodsCount from './EditGoodsCount';
 import {request} from './../../common/request';
 import {connect} from 'react-redux';
 
@@ -35,8 +34,6 @@ class DetailModal extends React.Component {
         return <AddActiveImage keyWord={keyWord}/>;
       case 2:
         return <AddActiveGoods keyWord={keyWord}/>;
-      case 3:
-        return <EditGoodsCount keyWord={keyWord}/>;
       default:
         break;
     }
@@ -51,11 +48,11 @@ class DetailModal extends React.Component {
 
   handleNext = () => {
     const {stepIndex} = this.state;
-    if (stepIndex === 3) {
+    if (stepIndex === 2) {
       this.handleConfirm();
     }
     this.setState({
-      stepIndex: stepIndex === 3 ? stepIndex : stepIndex + 1
+      stepIndex: stepIndex === 2 ? stepIndex : stepIndex + 1
     });
   };
 
@@ -165,7 +162,7 @@ class DetailModal extends React.Component {
           style={{marginRight: 12}}
         />
         <RaisedButton
-          label={stepIndex === 3 ? '确认提交' : '下一步'}
+          label={stepIndex === 2 ? '确认提交' : '下一步'}
           primary={true}
           onClick={this.handleNext}
         />
@@ -202,13 +199,6 @@ class DetailModal extends React.Component {
                   stepIndex: 2
                 });
               }}>选定商品</StepButton>
-            </Step>
-            <Step>
-              <StepButton onClick={() => {
-                this.setState({
-                  stepIndex: 3
-                });
-              }}>设定数量</StepButton>
             </Step>
           </Stepper>
           <div style={contentStyle}>

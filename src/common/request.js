@@ -40,7 +40,6 @@ module.exports.request = function (url, option, data) {
         if (res.retCode === 0) {
           resolve(res);
         }else if(res.retCode === -13){
-          alert(res.msg);
           localStorage.removeItem('token');
           window.location.hash = '/login';
         }
@@ -50,7 +49,6 @@ module.exports.request = function (url, option, data) {
       });
   })
     .catch(function (res) {
-      alert('请求出错，请稍后重试！');
       return res;
     });
 };

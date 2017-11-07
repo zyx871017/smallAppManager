@@ -5,7 +5,7 @@ module.exports = {
     goods_image: '',
     goods_type_id: 1,
     goods_collect: 0,
-    category_id: 0,
+    category_id: 1,
     goods_jingle: '',
     goods_price: 0,
     goods_marketprice: 0,
